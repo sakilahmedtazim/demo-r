@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .form-container {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Registration Form</h2>
+    <form id="registrationForm">
+        <div class="form-group">
+            <label>Your Full Name</label>
+            <input type="text" name="fullName" required>
+        </div>
+        <div class="form-group">
+            <label>Your Active Mobile Number</label>
+            <input type="tel" name="mobileNumber" required>
+        </div>
+        <div class="form-group">
+            <label>Your Current Address</label>
+            <input type="text" name="address" required>
+        </div>
+        <div class="form-group">
+            <label>Your Email Address</label>
+            <input type="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label>What Is Your Educational Qualification?</label>
+            <input type="text" name="qualification" required>
+        </div>
+        <div class="form-group">
+            <label>Which Profession Do You Want to Join Us?</label>
+            <input type="text" name="profession" required>
+        </div>
+        <div class="form-group">
+            <label>Are You More Experienced in Any Work?</label>
+            <input type="text" name="experience" required>
+        </div>
+        <div class="form-group">
+            <label>Your Age</label>
+            <input type="number" name="age" required>
+        </div>
+        <div class="form-group">
+            <label>Your Gender</label>
+            <select name="gender" required>
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Can You Come to Dhaka and Work?</label>
+            <select name="canComeDhaka" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Will Your Parents Support?</label>
+            <select name="parentSupport" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+
+<script>
+document.getElementById("registrationForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    fetch("https://script.google.com/macros/s/AKfycbxDLKBQnjxu0YYx8GtGGegBYickiJcjRcH4Id4K7eR0KY90BMfarUxmhDi_oy1-7X2cug/exec", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(responseData => {
+            if (responseData.result === 'success') {
+                alert("Registration successful!");
+                e.target.reset();
+            } else {
+                alert("Registration failed. Please try again.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        });
+});
+</script>
+</body>
+</html>
